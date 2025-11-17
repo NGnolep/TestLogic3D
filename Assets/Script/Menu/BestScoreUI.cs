@@ -13,7 +13,7 @@ public class BestScoreUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKey(KeyCode.Z) && Input.GetKeyDown(KeyCode.X))
         {
             ResetBestScorePref();
         }
