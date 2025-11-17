@@ -28,7 +28,17 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        ScoreManager.Instance.AddScore(2000);
+        StartCoroutine(DieRoutine());
+    }
+
+    IEnumerator DieRoutine()
+    {
+        EnemyAnimationController.Instance.TriggerAnimation("Dead");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.deathSound);
+        GameStatsManager.Instance.AddEnemyDefeated();
+        GameStatsManager.Instance.AddScore(2000);
+
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }

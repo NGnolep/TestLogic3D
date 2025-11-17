@@ -7,7 +7,7 @@ public class PlayerUltimate : MonoBehaviour
     public PlayerHealth health;
     public PlayerShooting shooter;
     public GameObject meleeMode;
-
+    public GameObject gunModel;
     public float duration = 20;
     public float cooldown = 60;
 
@@ -24,10 +24,10 @@ public class PlayerUltimate : MonoBehaviour
     {
         active = true;
         onCooldown = true;
-
+        GameStatsManager.Instance.UseE();
         shooter.enabled = false;
         meleeMode.SetActive(true);
-
+        gunModel.SetActive(false);
         health.SetMaxHP(200);
 
         yield return new WaitForSeconds(duration);

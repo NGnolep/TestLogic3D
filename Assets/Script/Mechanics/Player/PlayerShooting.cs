@@ -15,12 +15,15 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && ammo > 0 && !isReloading)
             Shoot();
 
-        if (ammo == 0 && !isReloading)
+        if (ammo == 0 && !isReloading || Input.GetKeyDown(KeyCode.R))
             StartCoroutine(Reload());
     }
 
     void Shoot()
     {
+        PlayerAnimationController.Instance.SwitchWeapon(WeaponType.Gun);
+        PlayerAnimationController.Instance.TriggerAnimation(WeaponType.Gun, "Shoot");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.attackSound);
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
 
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -41,10 +44,13 @@ public class PlayerShooting : MonoBehaviour
 
         ammo--;
         AmmoUIManager.Instance.UpdateAmmo(ammo);
+        GameStatsManager.Instance.Shoot();
     }
 
     System.Collections.IEnumerator Reload()
     {
+        PlayerAnimationController.Instance.SwitchWeapon(WeaponType.Gun);
+        PlayerAnimationController.Instance.TriggerAnimation(WeaponType.Gun, "Reload");
         isReloading = true;
         yield return new WaitForSeconds(reloadTime);
         ammo = 5;

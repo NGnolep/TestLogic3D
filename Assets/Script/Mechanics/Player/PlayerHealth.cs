@@ -22,6 +22,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player took damage");
         OnHPChanged.Invoke(currentHP, data.maxHP);
 
+        if (currentHP <= 0)
+            Die();
     }
 
     public void Heal(float amount)
@@ -37,5 +39,14 @@ public class PlayerHealth : MonoBehaviour
         data.maxHP = newHP;
         currentHP = newHP;
         OnHPChanged.Invoke(currentHP, data.maxHP);
+    }
+
+    void Die()
+    {
+        Debug.Log("Player Died");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.deathSound);
+        GameOverManager gameOver = FindObjectOfType<GameOverManager>();
+        if (gameOver != null)
+            gameOver.ShowGameOver();
     }
 }

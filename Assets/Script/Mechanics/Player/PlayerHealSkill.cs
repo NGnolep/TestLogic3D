@@ -24,6 +24,8 @@ public class PlayerHealSkill : MonoBehaviour
         active = true;
         onCooldown = true;
 
+        GameStatsManager.Instance.UseQ();
+        
         float timer = 0;
 
         while (timer < duration)

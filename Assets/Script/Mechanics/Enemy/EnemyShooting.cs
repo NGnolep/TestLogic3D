@@ -18,6 +18,8 @@ public class EnemyShooting : MonoBehaviour
 
     void ShootPlayer()
     {
+        EnemyAnimationController.Instance.TriggerAnimation("fire");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.attackSound);
         if (player == null) return;
 
         // calculate direction to player

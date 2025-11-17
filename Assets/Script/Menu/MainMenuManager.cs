@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MainMenuManager : MonoBehaviour
+{
+    public GameObject bestScorePanel;
+    public GameObject optionsPanel;
+    public float fadeWait = 1f;
+
+    public void PlayGame()
+    {
+        FadeController.Instance.FadeOutAndLoad("GameScene");
+    }
+    public void OpenBestScore()
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.clickSound);
+        bestScorePanel.SetActive(true);
+    }
+
+    public void CloseBestScore()
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.clickSound);
+        bestScorePanel.SetActive(false);
+    }
+    public void OpenOptions()
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.clickSound);
+        optionsPanel.SetActive(true);
+    }
+
+    public void CloseOptions()
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.clickSound);
+        optionsPanel.SetActive(false);
+    }
+    public void ExitGame()
+    {
+        Debug.Log("Quit Game!");
+        Application.Quit();
+    }
+}
