@@ -888,6 +888,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   data: {fileID: 11400000, guid: eec49de3250d34f428ed3d4f7b3e1594, type: 2}
+  dataScore: {fileID: 11400000, guid: e10d6e643d853854a956a3defb90a407, type: 2}
 --- !u!114 &4409600852689905179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,9 +901,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec633afafba85c499976c8c7214c842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3702479196029334070, guid: bf0056da9ff033444b0089fb907ca223, type: 3}
+  data: {fileID: 11400000, guid: eec49de3250d34f428ed3d4f7b3e1594, type: 2}
   shootPoint: {fileID: 2858375069459054028}
-  shootInterval: 5
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &475697435006622634
 MonoBehaviour:
   m_ObjectHideFlags: 0

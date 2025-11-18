@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public UnityEvent<float, float> OnHPChanged;
 
     public EnemyData data;
+    public InGameData dataScore;
     float currentHP;
 
     void Start()
@@ -36,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
         EnemyAnimationController.Instance.TriggerAnimation("Dead");
         AudioManager.Instance.PlaySFX(AudioManager.Instance.deathSound);
         GameStatsManager.Instance.AddEnemyDefeated();
-        GameStatsManager.Instance.AddScore(2000);
+        GameStatsManager.Instance.AddScore(dataScore.killScore);
 
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);

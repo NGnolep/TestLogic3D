@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public GameObject bulletPrefab;
-    public Transform shootPoint;
-
-    public int ammo = 5;
+    public InGameData data;
     public float reloadTime = 1f;
     bool isReloading;
+    public float range = 100f;
+    void Start()
+    {
+        AmmoUIManager.Instance.UpdateAmmo((int)data.ammo);
+    }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && ammo > 0 && !isReloading)
+        if (Input.GetMouseButtonDown(0) && data.ammo > 0 && !isReloading)
             Shoot();
 
-        if (ammo == 0 && !isReloading || Input.GetKeyDown(KeyCode.R))
+        if ((data.ammo == 0 && !isReloading) || Input.GetKeyDown(KeyCode.R))
             StartCoroutine(Reload());
     }
 
@@ -24,27 +26,31 @@ public class PlayerShooting : MonoBehaviour
         PlayerAnimationController.Instance.SwitchWeapon(WeaponType.Gun);
         PlayerAnimationController.Instance.TriggerAnimation(WeaponType.Gun, "Shoot");
         AudioManager.Instance.PlaySFX(AudioManager.Instance.attackSound);
-        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+         data.ammo--;
+        AmmoUIManager.Instance.UpdateAmmo((int)data.ammo);
+        GameStatsManager.Instance.Shoot();
 
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Vector3 targetPoint;
+        // ---- HITSCAN DAMAGE ---- //
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f));
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, range))
         {
-            targetPoint = hit.point; 
+            Debug.DrawLine(ray.origin, hit.point, Color.red, 0.25f);
+
+            // EXACT SAME DAMAGE LOGIC AS BULLET.cs
+            if (hit.collider.TryGetComponent<PlayerHealth>(out var player))
+                player.TakeDamage(data.bulletDamage);
+
+            if (hit.collider.TryGetComponent<EnemyHealth>(out var enemy))
+                enemy.TakeDamage(data.bulletDamage);
+
+            // Optional hit effect:
+            // Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
         }
         else
         {
-            targetPoint = ray.GetPoint(100f); 
+            Debug.DrawLine(ray.origin, ray.GetPoint(range), Color.yellow, 0.25f);
         }
-
-    
-        Vector3 direction = (targetPoint - shootPoint.position).normalized;
-        bullet.transform.forward = direction;
-
-        ammo--;
-        AmmoUIManager.Instance.UpdateAmmo(ammo);
-        GameStatsManager.Instance.Shoot();
     }
 
     System.Collections.IEnumerator Reload()
@@ -53,8 +59,9 @@ public class PlayerShooting : MonoBehaviour
         PlayerAnimationController.Instance.TriggerAnimation(WeaponType.Gun, "Reload");
         isReloading = true;
         yield return new WaitForSeconds(reloadTime);
-        ammo = 5;
-        AmmoUIManager.Instance.UpdateAmmo(ammo);
+        data.ammo = 5;
+        AmmoUIManager.Instance.UpdateAmmo((int)data.ammo);
+
         isReloading = false;
     }
 }

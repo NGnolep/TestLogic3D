@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletDamage: 20
   ammo: 5
-  killScore: 100
+  killScore: 2000

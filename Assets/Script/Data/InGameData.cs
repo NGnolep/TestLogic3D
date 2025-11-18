@@ -7,5 +7,5 @@ public class InGameData : ScriptableObject
 {
     public float bulletDamage = 20;
     public float ammo = 5;
-    public float killScore = 100;
+    public int killScore = 2000;
 }

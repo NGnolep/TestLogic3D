@@ -6732,7 +6732,7 @@ Transform:
   m_GameObject: {fileID: 1465818946}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.9, z: 0}
+  m_LocalPosition: {x: 0, y: 3.9, z: 0.162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6764,10 +6764,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.6406211
+  m_Height: 4.285771
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.005196452, y: 0.30693173, z: 0.020287693}
 --- !u!114 &1465818950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6800,10 +6800,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d439ab179304d4ca7a420cf72d33e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3702479196029334070, guid: bf0056da9ff033444b0089fb907ca223, type: 3}
-  shootPoint: {fileID: 508641958}
-  ammo: 5
+  data: {fileID: 11400000, guid: e10d6e643d853854a956a3defb90a407, type: 2}
   reloadTime: 1
+  range: 100
 --- !u!114 &1465818952
 MonoBehaviour:
   m_ObjectHideFlags: 0

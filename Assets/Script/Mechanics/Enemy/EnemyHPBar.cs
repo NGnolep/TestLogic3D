@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class EnemyHPBar : MonoBehaviour
 {
     public Slider slider;
-    public Transform target;  // enemy head
+    public Transform target;  
     public Vector3 offset = new Vector3(0, 2f, 0);
 
     void LateUpdate()
@@ -16,10 +16,8 @@ public class EnemyHPBar : MonoBehaviour
             return;
         }
 
-        // Follow enemy
         transform.position = target.position + offset;
 
-        // Face the camera
         transform.LookAt(Camera.main.transform);
     }
 
